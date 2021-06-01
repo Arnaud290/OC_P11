@@ -15,12 +15,23 @@ class WebsiteUser(HttpUser):
         self.client.get("/")
 
     @task
-    def purchasePlaces(self):
+    def purchasePlaces_past(self):
         self.client.post(
             '/purchasePlaces',
             data={
                 'club': 'Simply Lift',
                 'competition': 'Spring Festival',
+                'places': '3'
+            }
+        )
+
+    @task
+    def purchasePlaces_future(self):
+        self.client.post(
+            '/purchasePlaces',
+            data={
+                'club': 'Simply Lift',
+                'competition': 'Winter Competition',
                 'places': '3'
             }
         )

@@ -75,7 +75,7 @@ class TestPurchasePlaces:
         )
         assert response.status_code == 200
         assert server.clubs[0]['points'] == 20
-    
+
     def test_purchasePlaces_more_than_12_places_per_competition(
         self,
         mock_loadClubs_fixture,
@@ -95,3 +95,25 @@ class TestPurchasePlaces:
         assert response.status_code == 200
         assert server.competitions[0]['numberOfPlaces'] == 50
         assert server.clubs[0]['points'] == 20
+
+    def test_book_places_in_past_competitions(
+        self,
+        mock_loadClubs_fixture,
+        mock_loadCompetitions_fixture
+    ):
+        response = client.get(
+            '/book/Test Competition/Club Test'
+        )
+        assert response.status_code == 200
+        assert b'Event is too old!' in response.data
+
+    def test_book_places_in_future_competitions(
+        self,
+        mock_loadClubs_fixture,
+        mock_loadCompetitions_fixture
+    ):
+        response = client.get(
+            '/book/Test Future Competition/Club Test'
+        )
+        assert response.status_code == 200
+        assert b'Event is too old!' not in response.data
