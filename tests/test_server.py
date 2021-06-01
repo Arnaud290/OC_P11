@@ -117,3 +117,22 @@ class TestPurchasePlaces:
         )
         assert response.status_code == 200
         assert b'Event is too old!' not in response.data
+
+    def test_purchasePlaces_points_deducted(
+        self,
+        mock_loadClubs_fixture,
+        mock_loadCompetitions_fixture
+    ):
+        """
+        Checking for deduction of club points at registration
+        """
+        response = client.post(
+            '/purchasePlaces',
+            data={
+                'club': 'Club Test',
+                'competition': 'Test Competition',
+                'places': '10'
+            }
+        )
+        assert response.status_code == 200
+        assert server.clubs[0]['points'] == 10
