@@ -1,7 +1,8 @@
 """ Test module for the showSummary function """
 import json
 import pytest
-from .. import server
+from .. import server 
+from ..config_server import POINTS_PER_PLACE
 
 client = server.app.test_client()
 
@@ -131,11 +132,11 @@ class TestPurchasePlaces:
             data={
                 'club': 'Club Test',
                 'competition': 'Test Competition',
-                'places': '10'
+                'places': '1'
             }
         )
         assert response.status_code == 200
-        assert server.clubs[0]['points'] == 10
+        assert server.clubs[0]['points'] == 20 - 1 * POINTS_PER_PLACE
 
 
 class TestClubsPoints:
