@@ -17,6 +17,19 @@ def mock_loadClubs_fixture(monkeypatch):
         mock_loadClubs()
     )
 
+
+@pytest.fixture
+def mock_loadCompetitions_fixture(monkeypatch):
+    def mock_loadCompetitions():
+        with open('tests/competitions_test.json') as comps:
+            listOfCompetitions = json.load(comps)['competitions']
+            return listOfCompetitions
+    monkeypatch.setattr(
+        'Python_Testing.server.competitions',
+        mock_loadCompetitions()
+    )
+
+
 class TestShowSummary:
     """ Class of tests for the showSummary function """
     def test_showSummary_post_email(
@@ -39,3 +52,26 @@ class TestShowSummary:
             data={'email': 'club@test_false.com'}
         )
         assert response.status_code == 302
+
+
+class TestPurchasePlaces:
+    """ Class of tests for the purchasePlaces function """
+    def test_purchasePlaces_more_points_allowed(
+        self,
+        mock_loadClubs_fixture,
+        mock_loadCompetitions_fixture
+    ):
+        """
+        When the user indicates more registration places
+        than points, it does not deduct points.
+        """
+        response = client.post(
+            '/purchasePlaces',
+            data={
+                'club': 'Club Test',
+                'competition': 'Test Competition',
+                'places': '21'
+            }
+        )
+        assert response.status_code == 200
+        assert server.clubs[0]['points'] == 20
