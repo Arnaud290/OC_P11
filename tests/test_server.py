@@ -152,3 +152,13 @@ class TestIndex:
     def test_index(self):
         response = client.get('/')
         assert response.status_code == 200
+
+
+class TestLogout:
+    def test_logout(self):
+        """
+        If the user logs out,
+        it returns to the index page (302)
+        """
+        response = client.get('/logout')
+        assert response.status_code == 302
