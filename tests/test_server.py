@@ -75,3 +75,23 @@ class TestPurchasePlaces:
         )
         assert response.status_code == 200
         assert server.clubs[0]['points'] == 20
+    
+    def test_purchasePlaces_more_than_12_places_per_competition(
+        self,
+        mock_loadClubs_fixture,
+        mock_loadCompetitions_fixture
+    ):
+        """
+        Checking if a club reserves more than 12 places
+        """
+        response = client.post(
+            '/purchasePlaces',
+            data={
+                'club': 'Club Test',
+                'competition': 'Test Competition',
+                'places': '13'
+            }
+        )
+        assert response.status_code == 200
+        assert server.competitions[0]['numberOfPlaces'] == 50
+        assert server.clubs[0]['points'] == 20
