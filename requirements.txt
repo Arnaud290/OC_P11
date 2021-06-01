@@ -3,6 +3,7 @@ certifi==2021.5.30
 chardet==4.0.0
 click==7.1.2
 ConfigArgParse==1.4.1
+coverage==5.5
 Flask==1.1.2
 Flask-BasicAuth==0.2.0
 gevent==21.1.2
@@ -21,6 +22,7 @@ psutil==5.8.0
 py==1.10.0
 pyparsing==2.4.7
 pytest==6.2.4
+pytest-cov==2.12.0
 pyzmq==22.1.0
 requests==2.25.1
 six==1.16.0
