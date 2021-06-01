@@ -1,7 +1,7 @@
 """ Test module for the showSummary function """
 import json
 import pytest
-from .. import server 
+from .. import server
 from ..config_server import POINTS_PER_PLACE
 
 client = server.app.test_client()
@@ -145,4 +145,10 @@ class TestClubsPoints:
         mock_loadClubs_fixture,
     ):
         response = client.get('/clubsPoints')
+        assert response.status_code == 200
+
+
+class TestIndex:
+    def test_index(self):
+        response = client.get('/')
         assert response.status_code == 200
