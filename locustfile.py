@@ -35,3 +35,7 @@ class WebsiteUser(HttpUser):
                 'places': '3'
             }
         )
+
+    @task
+    def ClubsPoints(self):
+        self.client.get('/clubsPoints')

@@ -136,3 +136,12 @@ class TestPurchasePlaces:
         )
         assert response.status_code == 200
         assert server.clubs[0]['points'] == 10
+
+
+class TestClubsPoints:
+    def test_ClubsPoints(
+        self,
+        mock_loadClubs_fixture,
+    ):
+        response = client.get('/clubsPoints')
+        assert response.status_code == 200
