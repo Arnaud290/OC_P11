@@ -71,11 +71,11 @@ class TestPurchasePlaces:
             data={
                 'club': 'Club Test',
                 'competition': 'Test Competition',
-                'places': '21'
+                'places': '1000'
             }
         )
         assert response.status_code == 200
-        assert server.clubs[0]['points'] == 20
+        assert server.clubs[0]['points'] == 100
 
     def test_purchasePlaces_more_than_12_places_per_competition(
         self,
@@ -95,7 +95,8 @@ class TestPurchasePlaces:
         )
         assert response.status_code == 200
         assert server.competitions[0]['numberOfPlaces'] == 50
-        assert server.clubs[0]['points'] == 20
+        assert server.clubs[0]['points'] == 100
+        assert b'No more than 12 places per booking!' in response.data
 
     def test_book_places_in_past_competitions(
         self,
@@ -136,7 +137,7 @@ class TestPurchasePlaces:
             }
         )
         assert response.status_code == 200
-        assert server.clubs[0]['points'] == 20 - 1 * POINTS_PER_PLACE
+        assert server.clubs[0]['points'] == 100 - 1 * POINTS_PER_PLACE
 
 
 class TestClubsPoints:
