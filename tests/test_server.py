@@ -77,7 +77,7 @@ class TestPurchasePlaces:
         assert response.status_code == 200
         assert server.clubs[0]['points'] == 100
         assert server.competitions[1]['numberOfPlaces'] == 50
-        assert b'Too points are allowed!' in response.data
+        assert b'Too many points are used!' in response.data
 
 
     def test_purchasePlaces_more_than_12_places_per_competition(
@@ -110,7 +110,7 @@ class TestPurchasePlaces:
             '/book/Test Competition/Club Test'
         )
         assert response.status_code == 200
-        assert b'Event is too old!' in response.data
+        assert b'Event is expired!' in response.data
 
     def test_book_places_in_future_competitions(
         self,

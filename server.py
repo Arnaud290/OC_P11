@@ -47,7 +47,7 @@ def book(competition,club):
     if foundClub and foundCompetition and date_now < date_event:
         return render_template('booking.html',club=foundClub,competition=foundCompetition)
     else:
-        flash("Event is too old!")
+        flash("Event is expired!")
         return render_template('welcome.html', club=foundClub, competitions=competitions)
 
 
@@ -59,7 +59,7 @@ def purchasePlaces():
     club['points'] = int(club['points'])
     competition['numberOfPlaces'] = int(competition['numberOfPlaces'])
     if  placesRequired > int(club['points']) // config_server.POINTS_PER_PLACE:
-        flash('Too points are allowed!')
+        flash('Too many points are used!')
     elif placesRequired > 12:
         flash('No more than 12 places per booking!')
     else:
