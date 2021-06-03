@@ -71,7 +71,8 @@ def purchasePlaces():
 
 @app.route('/clubsPoints')
 def clubsPoints():
-    return render_template('pointsDisplay.html', clubs=clubs)
+    clubs_order = sorted(clubs, key=lambda k: k['name']) 
+    return render_template('pointsDisplay.html', clubs=clubs_order)
 
 
 @app.route('/logout')
