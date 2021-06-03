@@ -70,12 +70,15 @@ class TestPurchasePlaces:
             '/purchasePlaces',
             data={
                 'club': 'Club Test',
-                'competition': 'Test Competition',
+                'competition': 'Test Future Competition',
                 'places': '1000'
             }
         )
         assert response.status_code == 200
         assert server.clubs[0]['points'] == 100
+        assert server.competitions[1]['numberOfPlaces'] == 50
+        assert b'Too points are allowed!' in response.data
+
 
     def test_purchasePlaces_more_than_12_places_per_competition(
         self,
