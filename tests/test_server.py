@@ -121,7 +121,7 @@ class TestPurchasePlaces:
             '/book/Test Future Competition/Club Test'
         )
         assert response.status_code == 200
-        assert b'Event is too old!' not in response.data
+        assert b'Event is expired!' not in response.data
 
     def test_purchasePlaces_points_deducted(
         self,
